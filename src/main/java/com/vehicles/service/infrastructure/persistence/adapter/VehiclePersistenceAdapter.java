@@ -20,12 +20,13 @@ import com.vehicles.service.infrastructure.persistence.repository.TipoServicioJp
 import com.vehicles.service.infrastructure.persistence.repository.TipoVehiculoJpaRepository;
 import com.vehicles.service.infrastructure.persistence.repository.VehicleJpaRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
-import java.util.function.Function;
 
-@Component
+@Repository
 @RequiredArgsConstructor
 public class VehiclePersistenceAdapter implements VehiclePersistencePort {
 
@@ -50,19 +51,34 @@ public class VehiclePersistenceAdapter implements VehiclePersistencePort {
         return vehicleJpaRepository.findById(id).map(this::toDomain);
     }
 
+    @Override
+    public List<Vehicle> findAll() {
+        return vehicleJpaRepository.findAll().stream().map(this::toDomain).toList();
+    }
+
+    @Override
+    public List<Vehicle> findByClienteId(String clienteId) {
+        return vehicleJpaRepository.findByClienteId(clienteId).stream().map(this::toDomain).toList();
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        vehicleJpaRepository.deleteById(id);
+    }
+
     private VehicleEntity toEntity(Vehicle vehicle) {
         VehicleEntity entity = new VehicleEntity();
         if (vehicle.id() != null) {
             entity.setId(vehicle.id());
         }
         entity.setClienteId(vehicle.clienteId());
-        entity.setMarca(loadReference(marcaJpaRepository::findById, "Marca", vehicle.marcaId()));
-        entity.setClase(loadReference(claseJpaRepository::findById, "Clase", vehicle.claseId()));
-        entity.setLinea(loadReference(lineaJpaRepository::findById, "Linea", vehicle.lineaId()));
-        entity.setColor(loadReference(colorJpaRepository::findById, "Color", vehicle.colorId()));
-        entity.setTipoVehiculo(loadReference(tipoVehiculoJpaRepository::findById, "Tipo de Vehículo", vehicle.tipoVehiculoId()));
-        entity.setTipoCombustible(loadReference(tipoCombustibleJpaRepository::findById, "Tipo de Combustible", vehicle.tipoCombustibleId()));
-        entity.setTipoServicio(loadReference(tipoServicioJpaRepository::findById, "Tipo de Servicio", vehicle.tipoServicioId()));
+        entity.setMarca(loadReference(marcaJpaRepository, "Marca", vehicle.marcaId()));
+        entity.setClase(loadReference(claseJpaRepository, "Clase", vehicle.claseId()));
+        entity.setLinea(loadReference(lineaJpaRepository, "Linea", vehicle.lineaId()));
+        entity.setColor(loadReference(colorJpaRepository, "Color", vehicle.colorId()));
+        entity.setTipoVehiculo(loadReference(tipoVehiculoJpaRepository, "Tipo de Vehículo", vehicle.tipoVehiculoId()));
+        entity.setTipoCombustible(loadReference(tipoCombustibleJpaRepository, "Tipo de Combustible", vehicle.tipoCombustibleId()));
+        entity.setTipoServicio(loadReference(tipoServicioJpaRepository, "Tipo de Servicio", vehicle.tipoServicioId()));
         entity.setModelo(vehicle.modelo());
         entity.setPlaca(vehicle.placa());
         entity.setCertificadoNo(vehicle.certificadoNo());
@@ -86,8 +102,8 @@ public class VehiclePersistenceAdapter implements VehiclePersistencePort {
         );
     }
 
-    private <T> T loadReference(Function<Long, Optional<T>> finder, String type, Long id) {
-        return finder.apply(id)
+    private <T> T loadReference(CrudRepository<T, Long> repository, String type, Long id) {
+        return repository.findById(id)
                 .orElseThrow(() -> new NotFoundException(type + " no encontrada para id=" + id));
     }
 }
