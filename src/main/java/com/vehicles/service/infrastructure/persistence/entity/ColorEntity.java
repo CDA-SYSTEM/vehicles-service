@@ -11,7 +11,7 @@ public class ColorEntity extends ReferenceDataEntity {
         super();
     }
 
-    public ColorEntity(Long id, String nombre, String descripcion) {
-        super(id, nombre, descripcion);
+    public ColorEntity(Long id, String nombre) {
+        super(id, nombre);
     }
 }

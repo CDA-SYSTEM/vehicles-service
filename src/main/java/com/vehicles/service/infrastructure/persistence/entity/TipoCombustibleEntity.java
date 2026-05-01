@@ -11,7 +11,7 @@ public class TipoCombustibleEntity extends ReferenceDataEntity {
         super();
     }
 
-    public TipoCombustibleEntity(Long id, String nombre, String descripcion) {
-        super(id, nombre, descripcion);
+    public TipoCombustibleEntity(Long id, String nombre) {
+        super(id, nombre);
     }
 }

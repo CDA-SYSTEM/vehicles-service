@@ -7,11 +7,11 @@ import com.vehicles.service.domain.model.command.CreateVehicleCommand;
 import com.vehicles.service.domain.model.command.UpdateVehicleCommand;
 import com.vehicles.service.domain.model.response.VehicleResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -32,16 +32,11 @@ public class VehicleService implements VehicleUseCase {
     }
 
     @Override
-    public List<VehicleResponse> findVehicles(String clienteId) {
-        return (clienteId == null || clienteId.isBlank())
-                ? persistencePort.findAll()
-                .stream()
-                .map(this::toResponse)
-                .collect(Collectors.toList())
-                : persistencePort.findByClienteId(clienteId)
-                .stream()
-                .map(this::toResponse)
-                .collect(Collectors.toList());
+    public Page<VehicleResponse> findVehicles(String clienteId, Pageable pageable) {
+        Page<Vehicle> vehicles = (clienteId == null || clienteId.isBlank())
+                ? persistencePort.findAll(pageable)
+                : persistencePort.findByClienteId(clienteId, pageable);
+        return vehicles.map(this::toResponse);
     }
 
     @Override

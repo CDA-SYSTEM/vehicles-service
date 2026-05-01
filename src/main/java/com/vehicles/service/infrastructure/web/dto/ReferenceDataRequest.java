@@ -5,10 +5,9 @@ import jakarta.validation.constraints.NotBlank;
 
 public record ReferenceDataRequest(
         @NotBlank(message = "El nombre es obligatorio")
-        String nombre,
-        String descripcion
+        String nombre
 ) {
     public ReferenceData toDomain() {
-        return new ReferenceData(null, nombre, descripcion);
+        return new ReferenceData(null, nombre);
     }
 }

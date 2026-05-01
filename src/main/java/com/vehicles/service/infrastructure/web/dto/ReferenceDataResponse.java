@@ -4,10 +4,9 @@ import com.vehicles.service.domain.model.reference.ReferenceData;
 
 public record ReferenceDataResponse(
         Long id,
-        String nombre,
-        String descripcion
+        String nombre
 ) {
     public static ReferenceDataResponse from(ReferenceData data) {
-        return new ReferenceDataResponse(data.id(), data.nombre(), data.descripcion());
+        return new ReferenceDataResponse(data.id(), data.nombre());
     }
 }

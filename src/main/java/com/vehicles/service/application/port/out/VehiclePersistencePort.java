@@ -1,8 +1,9 @@
 package com.vehicles.service.application.port.out;
 
 import com.vehicles.service.domain.model.Vehicle;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
-import java.util.List;
 import java.util.Optional;
 
 public interface VehiclePersistencePort {
@@ -11,9 +12,9 @@ public interface VehiclePersistencePort {
 
     Optional<Vehicle> findById(Long id);
 
-    List<Vehicle> findAll();
+    Page<Vehicle> findAll(Pageable pageable);
 
-    List<Vehicle> findByClienteId(String clienteId);
+    Page<Vehicle> findByClienteId(String clienteId, Pageable pageable);
 
     void deleteById(Long id);
 }

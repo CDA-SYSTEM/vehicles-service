@@ -3,8 +3,9 @@ package com.vehicles.service.application.port.in;
 import com.vehicles.service.domain.model.command.CreateVehicleCommand;
 import com.vehicles.service.domain.model.command.UpdateVehicleCommand;
 import com.vehicles.service.domain.model.response.VehicleResponse;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
-import java.util.List;
 import java.util.Optional;
 
 public interface VehicleUseCase {
@@ -13,7 +14,7 @@ public interface VehicleUseCase {
 
     Optional<VehicleResponse> findVehicleById(Long id);
 
-    List<VehicleResponse> findVehicles(String clienteId);
+    Page<VehicleResponse> findVehicles(String clienteId, Pageable pageable);
 
     Optional<VehicleResponse> updateVehicle(Long id, UpdateVehicleCommand command);
 

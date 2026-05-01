@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api/catalogs/{type}")
+@RequestMapping("/api/v1/catalogs/{type}")
 @RequiredArgsConstructor
 public class ReferenceDataController {
 
@@ -35,7 +35,7 @@ public class ReferenceDataController {
         ReferenceType referenceType = ReferenceType.fromPath(type);
         ReferenceData created = referenceDataUseCase.create(referenceType, request.toDomain());
         return ResponseEntity
-                .created(URI.create(String.format("/api/catalogs/%s/%d", type, created.id())))
+                .created(URI.create(String.format("/api/v1/catalogs/%s/%d", type, created.id())))
                 .body(ReferenceDataResponse.from(created));
     }
 

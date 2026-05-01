@@ -11,7 +11,7 @@ public class TipoVehiculoEntity extends ReferenceDataEntity {
         super();
     }
 
-    public TipoVehiculoEntity(Long id, String nombre, String descripcion) {
-        super(id, nombre, descripcion);
+    public TipoVehiculoEntity(Long id, String nombre) {
+        super(id, nombre);
     }
 }

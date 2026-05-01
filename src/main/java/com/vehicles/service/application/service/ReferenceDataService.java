@@ -35,7 +35,7 @@ public class ReferenceDataService implements ReferenceDataUseCase {
     public ReferenceData update(ReferenceType type, Long id, ReferenceData data) {
         ReferenceData current = persistencePort.findById(type, id)
                 .orElseThrow(() -> new IllegalStateException("No existe el registro de referencia con id=" + id));
-        ReferenceData updated = new ReferenceData(id, data.nombre(), data.descripcion());
+        ReferenceData updated = new ReferenceData(id, data.nombre());
         return persistencePort.save(type, updated);
     }
 

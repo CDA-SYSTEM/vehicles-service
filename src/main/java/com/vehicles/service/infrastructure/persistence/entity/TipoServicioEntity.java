@@ -11,7 +11,7 @@ public class TipoServicioEntity extends ReferenceDataEntity {
         super();
     }
 
-    public TipoServicioEntity(Long id, String nombre, String descripcion) {
-        super(id, nombre, descripcion);
+    public TipoServicioEntity(Long id, String nombre) {
+        super(id, nombre);
     }
 }

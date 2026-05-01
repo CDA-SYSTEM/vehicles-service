@@ -2,6 +2,7 @@ package com.vehicles.service.infrastructure.persistence.adapter;
 
 import com.vehicles.service.application.port.out.VehiclePersistencePort;
 import com.vehicles.service.domain.model.Vehicle;
+import com.vehicles.service.infrastructure.exception.DuplicateResourceException;
 import com.vehicles.service.infrastructure.exception.NotFoundException;
 import com.vehicles.service.infrastructure.persistence.entity.ClaseEntity;
 import com.vehicles.service.infrastructure.persistence.entity.ColorEntity;
@@ -20,10 +21,11 @@ import com.vehicles.service.infrastructure.persistence.repository.TipoServicioJp
 import com.vehicles.service.infrastructure.persistence.repository.TipoVehiculoJpaRepository;
 import com.vehicles.service.infrastructure.persistence.repository.VehicleJpaRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -41,6 +43,13 @@ public class VehiclePersistenceAdapter implements VehiclePersistencePort {
 
     @Override
     public Vehicle save(Vehicle vehicle) {
+        // Validar placa única al crear nuevo vehículo
+        if (vehicle.id() == null) {
+            vehicleJpaRepository.findByPlaca(vehicle.placa())
+                    .ifPresent(existing -> {
+                        throw new DuplicateResourceException("Ya existe un vehículo con la placa: " + vehicle.placa());
+                    });
+        }
         VehicleEntity entity = toEntity(vehicle);
         VehicleEntity saved = vehicleJpaRepository.save(entity);
         return toDomain(saved);
@@ -52,13 +61,13 @@ public class VehiclePersistenceAdapter implements VehiclePersistencePort {
     }
 
     @Override
-    public List<Vehicle> findAll() {
-        return vehicleJpaRepository.findAll().stream().map(this::toDomain).toList();
+    public Page<Vehicle> findAll(Pageable pageable) {
+        return vehicleJpaRepository.findAll(pageable).map(this::toDomain);
     }
 
     @Override
-    public List<Vehicle> findByClienteId(String clienteId) {
-        return vehicleJpaRepository.findByClienteId(clienteId).stream().map(this::toDomain).toList();
+    public Page<Vehicle> findByClienteId(String clienteId, Pageable pageable) {
+        return vehicleJpaRepository.findByClienteId(clienteId, pageable).map(this::toDomain);
     }
 
     @Override

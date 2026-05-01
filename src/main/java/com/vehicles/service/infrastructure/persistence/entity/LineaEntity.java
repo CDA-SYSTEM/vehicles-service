@@ -11,7 +11,7 @@ public class LineaEntity extends ReferenceDataEntity {
         super();
     }
 
-    public LineaEntity(Long id, String nombre, String descripcion) {
-        super(id, nombre, descripcion);
+    public LineaEntity(Long id, String nombre) {
+        super(id, nombre);
     }
 }

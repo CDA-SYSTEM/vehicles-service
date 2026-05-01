@@ -102,7 +102,6 @@ public class ReferenceDataPersistenceAdapter implements ReferenceDataPersistence
             setId(entity, data.id());
         }
         setNombre(entity, data.nombre());
-        setDescripcion(entity, data.descripcion());
         return toDomain(repository.save(entity));
     }
 
@@ -119,25 +118,25 @@ public class ReferenceDataPersistenceAdapter implements ReferenceDataPersistence
 
     private ReferenceData toDomain(Object entity) {
         if (entity instanceof MarcaEntity marca) {
-            return new ReferenceData(marca.getId(), marca.getNombre(), marca.getDescripcion());
+            return new ReferenceData(marca.getId(), marca.getNombre());
         }
         if (entity instanceof ClaseEntity clase) {
-            return new ReferenceData(clase.getId(), clase.getNombre(), clase.getDescripcion());
+            return new ReferenceData(clase.getId(), clase.getNombre());
         }
         if (entity instanceof LineaEntity linea) {
-            return new ReferenceData(linea.getId(), linea.getNombre(), linea.getDescripcion());
+            return new ReferenceData(linea.getId(), linea.getNombre());
         }
         if (entity instanceof ColorEntity color) {
-            return new ReferenceData(color.getId(), color.getNombre(), color.getDescripcion());
+            return new ReferenceData(color.getId(), color.getNombre());
         }
         if (entity instanceof TipoVehiculoEntity tipoVehiculo) {
-            return new ReferenceData(tipoVehiculo.getId(), tipoVehiculo.getNombre(), tipoVehiculo.getDescripcion());
+            return new ReferenceData(tipoVehiculo.getId(), tipoVehiculo.getNombre());
         }
         if (entity instanceof TipoCombustibleEntity tipoCombustible) {
-            return new ReferenceData(tipoCombustible.getId(), tipoCombustible.getNombre(), tipoCombustible.getDescripcion());
+            return new ReferenceData(tipoCombustible.getId(), tipoCombustible.getNombre());
         }
         if (entity instanceof TipoServicioEntity tipoServicio) {
-            return new ReferenceData(tipoServicio.getId(), tipoServicio.getNombre(), tipoServicio.getDescripcion());
+            return new ReferenceData(tipoServicio.getId(), tipoServicio.getNombre());
         }
         throw new NotFoundException("Entidad de referencia no soportada: " + entity.getClass().getName());
     }
@@ -151,12 +150,6 @@ public class ReferenceDataPersistenceAdapter implements ReferenceDataPersistence
     private void setNombre(Object entity, String nombre) {
         if (entity instanceof ReferenceDataEntity reference) {
             reference.setNombre(nombre);
-        }
-    }
-
-    private void setDescripcion(Object entity, String descripcion) {
-        if (entity instanceof ReferenceDataEntity reference) {
-            reference.setDescripcion(descripcion);
         }
     }
 }

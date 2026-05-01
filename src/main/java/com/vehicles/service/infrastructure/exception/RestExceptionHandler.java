@@ -30,6 +30,17 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
     }
 
+    @ExceptionHandler(DuplicateResourceException.class)
+    public ResponseEntity<ApiError> handleDuplicateResource(DuplicateResourceException ex) {
+        ApiError error = new ApiError(
+                LocalDateTime.now(),
+                HttpStatus.CONFLICT.value(),
+                "Conflicto de datos",
+                Collections.singletonList(ex.getMessage())
+        );
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(error);
+    }
+
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(
             MethodArgumentNotValidException ex,

@@ -1,0 +1,672 @@
+{
+  "info": {
+    "name": "Vehicles Service API - CRUD Catálogos",
+    "description": "API para el servicio de vehículos con CRUD completo para catálogos",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Health",
+      "item": [
+        {
+          "name": "Verificar estado del servicio",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/health",
+              "path": ["api", "v1", "health"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Marcas",
+      "item": [
+        {
+          "name": "Crear marca",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{baseUrl}}/marca",
+              "path": ["marca"]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"nombre\": \"Toyota\"}"
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Listar marcas",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/marca",
+              "path": ["marca"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Obtener marca por ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/marca/1",
+              "path": ["marca", "1"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Actualizar marca",
+          "request": {
+            "method": "PUT",
+            "url": {
+              "raw": "{{baseUrl}}/marca/1",
+              "path": ["marca", "1"]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"nombre\": \"Toyota Actualizado\"}"
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Eliminar marca",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{baseUrl}}/marca/1",
+              "path": ["marca", "1"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Clases",
+      "item": [
+        {
+          "name": "Crear clase",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{baseUrl}}/clase",
+              "path": ["clase"]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"nombre\": \"Automóvil\"}"
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Listar clases",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/clase",
+              "path": ["clase"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Obtener clase por ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/clase/1",
+              "path": ["clase", "1"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Actualizar clase",
+          "request": {
+            "method": "PUT",
+            "url": {
+              "raw": "{{baseUrl}}/clase/1",
+              "path": ["clase", "1"]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"nombre\": \"Automóvil Actualizado\"}"
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Eliminar clase",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{baseUrl}}/clase/1",
+              "path": ["clase", "1"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Líneas",
+      "item": [
+        {
+          "name": "Crear línea",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{baseUrl}}/linea",
+              "path": ["linea"]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"nombre\": \"Corolla\"}"
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Listar líneas",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/linea",
+              "path": ["linea"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Obtener línea por ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/linea/1",
+              "path": ["linea", "1"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Actualizar línea",
+          "request": {
+            "method": "PUT",
+            "url": {
+              "raw": "{{baseUrl}}/linea/1",
+              "path": ["linea", "1"]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"nombre\": \"Corolla Actualizado\"}"
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Eliminar línea",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{baseUrl}}/linea/1",
+              "path": ["linea", "1"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Colores",
+      "item": [
+        {
+          "name": "Crear color",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{baseUrl}}/color",
+              "path": ["color"]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"nombre\": \"Blanco\"}"
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Listar colores",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/color",
+              "path": ["color"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Obtener color por ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/color/1",
+              "path": ["color", "1"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Actualizar color",
+          "request": {
+            "method": "PUT",
+            "url": {
+              "raw": "{{baseUrl}}/color/1",
+              "path": ["color", "1"]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"nombre\": \"Blanco Perla\"}"
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Eliminar color",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{baseUrl}}/color/1",
+              "path": ["color", "1"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Tipos de Vehículo",
+      "item": [
+        {
+          "name": "Crear tipo de vehículo",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{baseUrl}}/tipo-vehiculo",
+              "path": ["tipo-vehiculo"]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"nombre\": \"Sedán\"}"
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Listar tipos de vehículo",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/tipo-vehiculo",
+              "path": ["tipo-vehiculo"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Obtener tipo de vehículo por ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/tipo-vehiculo/1",
+              "path": ["tipo-vehiculo", "1"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Actualizar tipo de vehículo",
+          "request": {
+            "method": "PUT",
+            "url": {
+              "raw": "{{baseUrl}}/tipo-vehiculo/1",
+              "path": ["tipo-vehiculo", "1"]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"nombre\": \"SUV\"}"
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Eliminar tipo de vehículo",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{baseUrl}}/tipo-vehiculo/1",
+              "path": ["tipo-vehiculo", "1"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Tipos de Combustible",
+      "item": [
+        {
+          "name": "Crear tipo de combustible",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{baseUrl}}/tipo-combustible",
+              "path": ["tipo-combustible"]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"nombre\": \"Gasolina\"}"
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Listar tipos de combustible",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/tipo-combustible",
+              "path": ["tipo-combustible"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Obtener tipo de combustible por ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/tipo-combustible/1",
+              "path": ["tipo-combustible", "1"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Actualizar tipo de combustible",
+          "request": {
+            "method": "PUT",
+            "url": {
+              "raw": "{{baseUrl}}/tipo-combustible/1",
+              "path": ["tipo-combustible", "1"]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"nombre\": \"Diésel\"}"
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Eliminar tipo de combustible",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{baseUrl}}/tipo-combustible/1",
+              "path": ["tipo-combustible", "1"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Tipos de Servicio",
+      "item": [
+        {
+          "name": "Crear tipo de servicio",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{baseUrl}}/tipo-servicio",
+              "path": ["tipo-servicio"]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"nombre\": \"Particular\"}"
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Listar tipos de servicio",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/tipo-servicio",
+              "path": ["tipo-servicio"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Obtener tipo de servicio por ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/tipo-servicio/1",
+              "path": ["tipo-servicio", "1"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Actualizar tipo de servicio",
+          "request": {
+            "method": "PUT",
+            "url": {
+              "raw": "{{baseUrl}}/tipo-servicio/1",
+              "path": ["tipo-servicio", "1"]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"nombre\": \"Público\"}"
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Eliminar tipo de servicio",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{baseUrl}}/tipo-servicio/1",
+              "path": ["tipo-servicio", "1"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Vehículos",
+      "item": [
+        {
+          "name": "Crear vehículo",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{baseUrl}}/vehiculo",
+              "path": ["vehiculo"]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"clienteId\": \"CLI-001\",\n  \"marcaId\": 1,\n  \"claseId\": 1,\n  \"lineaId\": 1,\n  \"colorId\": 1,\n  \"tipoVehiculoId\": 1,\n  \"tipoCombustibleId\": 1,\n  \"tipoServicioId\": 1,\n  \"modelo\": \"2024\",\n  \"placa\": \"ABC-123\",\n  \"certificadoNo\": \"CERT-001\"\n}"
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Listar vehículos",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/vehiculo",
+              "path": ["vehiculo"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Obtener vehículo por ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/vehiculo/1",
+              "path": ["vehiculo", "1"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Actualizar vehículo",
+          "request": {
+            "method": "PUT",
+            "url": {
+              "raw": "{{baseUrl}}/vehiculo/1",
+              "path": ["vehiculo", "1"]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"clienteId\": \"CLI-001\",\n  \"marcaId\": 2,\n  \"claseId\": 1,\n  \"lineaId\": 1,\n  \"colorId\": 1,\n  \"tipoVehiculoId\": 1,\n  \"tipoCombustibleId\": 1,\n  \"tipoServicioId\": 1,\n  \"modelo\": \"2025\",\n  \"placa\": \"XYZ-999\",\n  \"certificadoNo\": \"CERT-002\"\n}"
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Eliminar vehículo",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{baseUrl}}/vehiculo/1",
+              "path": ["vehiculo", "1"]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}

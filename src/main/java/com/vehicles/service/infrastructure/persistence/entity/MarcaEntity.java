@@ -11,7 +11,7 @@ public class MarcaEntity extends ReferenceDataEntity {
         super();
     }
 
-    public MarcaEntity(Long id, String nombre, String descripcion) {
-        super(id, nombre, descripcion);
+    public MarcaEntity(Long id, String nombre) {
+        super(id, nombre);
     }
 }

@@ -11,7 +11,7 @@ public class ClaseEntity extends ReferenceDataEntity {
         super();
     }
 
-    public ClaseEntity(Long id, String nombre, String descripcion) {
-        super(id, nombre, descripcion);
+    public ClaseEntity(Long id, String nombre) {
+        super(id, nombre);
     }
 }

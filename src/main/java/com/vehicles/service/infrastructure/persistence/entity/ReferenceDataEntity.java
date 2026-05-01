@@ -21,6 +21,4 @@ public abstract class ReferenceDataEntity {
     private Long id;
 
     private String nombre;
-
-    private String descripcion;
 }
