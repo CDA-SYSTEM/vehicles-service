@@ -76,6 +76,13 @@ jobs:
               -e SPRING_FLYWAY_ENABLED="${{ secrets.SPRING_FLYWAY_ENABLED }}" \
               -e SPRING_FLYWAY_LOCATIONS="${{ secrets.SPRING_FLYWAY_LOCATIONS }}" \
               -e SPRING_FLYWAY_BASELINE_ON_MIGRATE="${{ secrets.SPRING_FLYWAY_BASELINE_ON_MIGRATE }}" \
+              -e RABBITMQ_HOST="${{ secrets.RABBITMQ_HOST }}" \
+              -e RABBITMQ_PORT="${{ secrets.RABBITMQ_PORT }}" \
+              -e RABBITMQ_QUEUE_USER="${{ secrets.RABBITMQ_QUEUE_USER }}" \
+              -e RABBITMQ_PASSWORD="${{ secrets.RABBITMQ_PASSWORD }}" \
+              -e RABBITMQ_VHOST="${{ secrets.RABBITMQ_VHOST }}" \
+              -e RABBITMQ_VEHICLE_QUEUE="${{ secrets.RABBITMQ_VEHICLE_QUEUE }}" \
+              -e RABBITMQ_RPC_TIMEOUT_MS="${{ secrets.RABBITMQ_RPC_TIMEOUT_MS }}" \
               --restart unless-stopped \
               ghcr.io/${{ env.REPO_LC }}:latest
 
