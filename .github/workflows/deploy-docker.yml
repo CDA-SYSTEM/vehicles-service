@@ -2,7 +2,7 @@ name: Deploy Spring Boot Docker
 
 on:
   push:
-    branches: [ "develop", "feature/config-deploy" ]
+    branches: [ "main", "feat/config-deploy" ]
   pull_request:
     branches: [ "main" ]
 
