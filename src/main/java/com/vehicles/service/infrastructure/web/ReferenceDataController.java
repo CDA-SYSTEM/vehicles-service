@@ -5,6 +5,7 @@ import com.vehicles.service.domain.model.reference.ReferenceData;
 import com.vehicles.service.domain.model.reference.ReferenceType;
 import com.vehicles.service.infrastructure.web.dto.ReferenceDataRequest;
 import com.vehicles.service.infrastructure.web.dto.ReferenceDataResponse;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +25,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/api/v1/catalogs/{type}")
 @RequiredArgsConstructor
+@SuppressFBWarnings("EI_EXPOSE_REP2")
 public class ReferenceDataController {
 
     private final ReferenceDataUseCase referenceDataUseCase;

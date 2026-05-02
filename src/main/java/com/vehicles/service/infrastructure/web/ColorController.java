@@ -4,6 +4,7 @@ import com.vehicles.service.application.service.ColorService;
 import com.vehicles.service.domain.model.Color;
 import com.vehicles.service.infrastructure.web.dto.ColorRequest;
 import com.vehicles.service.infrastructure.web.dto.ColorResponse;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/color")
 @RequiredArgsConstructor
+@SuppressFBWarnings("EI_EXPOSE_REP2")
 public class ColorController {
 
     private final ColorService colorService;

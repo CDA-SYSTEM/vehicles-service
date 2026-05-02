@@ -1,10 +1,10 @@
 package com.vehicles.service.infrastructure.web;
 
 import com.vehicles.service.application.port.in.VehicleUseCase;
-import com.vehicles.service.domain.model.command.UpdateVehicleCommand;
 import com.vehicles.service.infrastructure.web.dto.CreateVehicleRequest;
 import com.vehicles.service.infrastructure.web.dto.UpdateVehicleRequest;
 import com.vehicles.service.infrastructure.web.dto.VehicleResponseDto;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -26,6 +26,7 @@ import java.net.URI;
 @RestController
 @RequestMapping("/vehiculo")
 @RequiredArgsConstructor
+@SuppressFBWarnings("EI_EXPOSE_REP2")
 public class VehicleController {
 
     private final VehicleUseCase vehicleUseCase;

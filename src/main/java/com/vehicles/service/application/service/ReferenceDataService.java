@@ -4,6 +4,7 @@ import com.vehicles.service.application.port.in.ReferenceDataUseCase;
 import com.vehicles.service.application.port.out.ReferenceDataPersistencePort;
 import com.vehicles.service.domain.model.reference.ReferenceData;
 import com.vehicles.service.domain.model.reference.ReferenceType;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +13,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@SuppressFBWarnings("EI_EXPOSE_REP2")
 public class ReferenceDataService implements ReferenceDataUseCase {
 
     private final ReferenceDataPersistencePort persistencePort;
@@ -33,7 +35,7 @@ public class ReferenceDataService implements ReferenceDataUseCase {
 
     @Override
     public ReferenceData update(ReferenceType type, Long id, ReferenceData data) {
-        ReferenceData current = persistencePort.findById(type, id)
+        persistencePort.findById(type, id)
                 .orElseThrow(() -> new IllegalStateException("No existe el registro de referencia con id=" + id));
         ReferenceData updated = new ReferenceData(id, data.nombre());
         return persistencePort.save(type, updated);

@@ -2,6 +2,7 @@ package com.vehicles.service.application.service;
 
 import com.vehicles.service.application.port.out.ClasePersistencePort;
 import com.vehicles.service.domain.model.Clase;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -10,6 +11,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@SuppressFBWarnings("EI_EXPOSE_REP2")
 public class ClaseService {
 
     private final ClasePersistencePort persistencePort;
@@ -27,7 +29,7 @@ public class ClaseService {
     }
 
     public Clase update(Long id, Clase clase) {
-        Clase current = persistencePort.findById(id)
+        persistencePort.findById(id)
                 .orElseThrow(() -> new IllegalStateException("No existe la clase con id=" + id));
         Clase updated = new Clase(id, clase.getNombre());
         return persistencePort.save(updated);

@@ -4,6 +4,7 @@ import com.vehicles.service.application.service.TipoVehiculoService;
 import com.vehicles.service.domain.model.TipoVehiculo;
 import com.vehicles.service.infrastructure.web.dto.TipoVehiculoRequest;
 import com.vehicles.service.infrastructure.web.dto.TipoVehiculoResponse;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/tipo-vehiculo")
 @RequiredArgsConstructor
+@SuppressFBWarnings("EI_EXPOSE_REP2")
 public class TipoVehiculoController {
 
     private final TipoVehiculoService tipoVehiculoService;

@@ -2,6 +2,7 @@ package com.vehicles.service.application.service;
 
 import com.vehicles.service.application.port.out.ColorPersistencePort;
 import com.vehicles.service.domain.model.Color;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -10,6 +11,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@SuppressFBWarnings("EI_EXPOSE_REP2")
 public class ColorService {
 
     private final ColorPersistencePort persistencePort;
@@ -27,7 +29,7 @@ public class ColorService {
     }
 
     public Color update(Long id, Color color) {
-        Color current = persistencePort.findById(id)
+        persistencePort.findById(id)
                 .orElseThrow(() -> new IllegalStateException("No existe el color con id=" + id));
         Color updated = new Color(id, color.getNombre());
         return persistencePort.save(updated);

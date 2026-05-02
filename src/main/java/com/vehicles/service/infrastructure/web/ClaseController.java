@@ -4,6 +4,7 @@ import com.vehicles.service.application.service.ClaseService;
 import com.vehicles.service.domain.model.Clase;
 import com.vehicles.service.infrastructure.web.dto.ClaseRequest;
 import com.vehicles.service.infrastructure.web.dto.ClaseResponse;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/clase")
 @RequiredArgsConstructor
+@SuppressFBWarnings("EI_EXPOSE_REP2")
 public class ClaseController {
 
     private final ClaseService claseService;

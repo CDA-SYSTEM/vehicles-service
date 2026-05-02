@@ -6,6 +6,7 @@ import com.vehicles.service.domain.model.Vehicle;
 import com.vehicles.service.domain.model.command.CreateVehicleCommand;
 import com.vehicles.service.domain.model.command.UpdateVehicleCommand;
 import com.vehicles.service.domain.model.response.VehicleResponse;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,6 +16,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@SuppressFBWarnings("EI_EXPOSE_REP2")
 public class VehicleService implements VehicleUseCase {
 
     private final VehiclePersistencePort persistencePort;
@@ -33,7 +35,7 @@ public class VehicleService implements VehicleUseCase {
 
     @Override
     public Page<VehicleResponse> findVehicles(String clienteId, Pageable pageable) {
-        Page<Vehicle> vehicles = (clienteId == null || clienteId.isBlank())
+        Page<Vehicle> vehicles = clienteId == null || clienteId.isBlank()
                 ? persistencePort.findAll(pageable)
                 : persistencePort.findByClienteId(clienteId, pageable);
         return vehicles.map(this::toResponse);

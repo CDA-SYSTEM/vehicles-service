@@ -4,6 +4,7 @@ import com.vehicles.service.application.service.MarcaService;
 import com.vehicles.service.domain.model.Marca;
 import com.vehicles.service.infrastructure.web.dto.MarcaRequest;
 import com.vehicles.service.infrastructure.web.dto.MarcaResponse;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/marca")
 @RequiredArgsConstructor
+@SuppressFBWarnings("EI_EXPOSE_REP2")
 public class MarcaController {
 
     private final MarcaService marcaService;

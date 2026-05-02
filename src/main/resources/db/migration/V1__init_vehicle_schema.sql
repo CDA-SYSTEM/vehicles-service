@@ -1,43 +1,36 @@
 CREATE TABLE marca (
     id BIGSERIAL PRIMARY KEY,
-    nombre VARCHAR(100) NOT NULL,
-    descripcion VARCHAR(255)
+    nombre VARCHAR(100) NOT NULL
 );
 
 CREATE TABLE clase (
     id BIGSERIAL PRIMARY KEY,
-    nombre VARCHAR(100) NOT NULL,
-    descripcion VARCHAR(255)
+    nombre VARCHAR(100) NOT NULL
 );
 
 CREATE TABLE linea (
     id BIGSERIAL PRIMARY KEY,
-    nombre VARCHAR(100) NOT NULL,
-    descripcion VARCHAR(255)
+    nombre VARCHAR(100) NOT NULL
 );
 
 CREATE TABLE color (
     id BIGSERIAL PRIMARY KEY,
-    nombre VARCHAR(100) NOT NULL,
-    descripcion VARCHAR(255)
+    nombre VARCHAR(100) NOT NULL
 );
 
 CREATE TABLE tipo_vehiculo (
     id BIGSERIAL PRIMARY KEY,
-    nombre VARCHAR(100) NOT NULL,
-    descripcion VARCHAR(255)
+    nombre VARCHAR(100) NOT NULL
 );
 
 CREATE TABLE tipo_combustible (
     id BIGSERIAL PRIMARY KEY,
-    nombre VARCHAR(100) NOT NULL,
-    descripcion VARCHAR(255)
+    nombre VARCHAR(100) NOT NULL
 );
 
 CREATE TABLE tipo_servicio (
     id BIGSERIAL PRIMARY KEY,
-    nombre VARCHAR(100) NOT NULL,
-    descripcion VARCHAR(255)
+    nombre VARCHAR(100) NOT NULL
 );
 
 CREATE TABLE vehiculo (

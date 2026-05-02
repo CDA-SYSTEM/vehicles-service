@@ -4,6 +4,7 @@ import com.vehicles.service.application.service.TipoCombustibleService;
 import com.vehicles.service.domain.model.TipoCombustible;
 import com.vehicles.service.infrastructure.web.dto.TipoCombustibleRequest;
 import com.vehicles.service.infrastructure.web.dto.TipoCombustibleResponse;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/tipo-combustible")
 @RequiredArgsConstructor
+@SuppressFBWarnings("EI_EXPOSE_REP2")
 public class TipoCombustibleController {
 
     private final TipoCombustibleService tipoCombustibleService;

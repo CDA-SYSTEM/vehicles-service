@@ -1,7 +1,6 @@
 package com.vehicles.service.domain.model.reference;
 
 import java.util.Arrays;
-import java.util.Locale;
 
 public enum ReferenceType {
     MARCA("marcas"),

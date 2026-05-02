@@ -4,6 +4,7 @@ import com.vehicles.service.application.service.LineaService;
 import com.vehicles.service.domain.model.Linea;
 import com.vehicles.service.infrastructure.web.dto.LineaRequest;
 import com.vehicles.service.infrastructure.web.dto.LineaResponse;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/linea")
 @RequiredArgsConstructor
+@SuppressFBWarnings("EI_EXPOSE_REP2")
 public class LineaController {
 
     private final LineaService lineaService;
