@@ -5,6 +5,7 @@ import com.vehicles.service.application.port.out.VehiclePersistencePort;
 import com.vehicles.service.domain.model.Vehicle;
 import com.vehicles.service.domain.model.command.CreateVehicleCommand;
 import com.vehicles.service.domain.model.command.UpdateVehicleCommand;
+import com.vehicles.service.domain.model.reference.ReferenceData;
 import com.vehicles.service.domain.model.response.VehicleResponse;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import lombok.RequiredArgsConstructor;
@@ -58,12 +59,19 @@ public class VehicleService implements VehicleUseCase {
                 id,
                 command.clienteId(),
                 command.marcaId(),
+                null,
                 command.claseId(),
+                null,
                 command.lineaId(),
+                null,
                 command.colorId(),
+                null,
                 command.tipoVehiculoId(),
+                null,
                 command.tipoCombustibleId(),
+                null,
                 command.tipoServicioId(),
+                null,
                 command.modelo(),
                 command.placa(),
                 command.certificadoNo()
@@ -75,12 +83,19 @@ public class VehicleService implements VehicleUseCase {
                 id,
                 command.clienteId(),
                 command.marcaId(),
+                null,
                 command.claseId(),
+                null,
                 command.lineaId(),
+                null,
                 command.colorId(),
+                null,
                 command.tipoVehiculoId(),
+                null,
                 command.tipoCombustibleId(),
+                null,
                 command.tipoServicioId(),
+                null,
                 command.modelo(),
                 command.placa(),
                 command.certificadoNo()
@@ -91,16 +106,20 @@ public class VehicleService implements VehicleUseCase {
         return new VehicleResponse(
                 vehicle.id(),
                 vehicle.clienteId(),
-                vehicle.marcaId(),
-                vehicle.claseId(),
-                vehicle.lineaId(),
-                vehicle.colorId(),
-                vehicle.tipoVehiculoId(),
-                vehicle.tipoCombustibleId(),
-                vehicle.tipoServicioId(),
+                createReference(vehicle.marcaId(), vehicle.marcaNombre()),
+                createReference(vehicle.claseId(), vehicle.claseNombre()),
+                createReference(vehicle.lineaId(), vehicle.lineaNombre()),
+                createReference(vehicle.colorId(), vehicle.colorNombre()),
+                createReference(vehicle.tipoVehiculoId(), vehicle.tipoVehiculoNombre()),
+                createReference(vehicle.tipoCombustibleId(), vehicle.tipoCombustibleNombre()),
+                createReference(vehicle.tipoServicioId(), vehicle.tipoServicioNombre()),
                 vehicle.modelo(),
                 vehicle.placa(),
                 vehicle.certificadoNo()
         );
+    }
+
+    private ReferenceData createReference(Long id, String nombre) {
+        return id == null ? null : new ReferenceData(id, nombre);
     }
 }

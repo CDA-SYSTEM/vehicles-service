@@ -7,6 +7,9 @@ public record ReferenceDataResponse(
         String nombre
 ) {
     public static ReferenceDataResponse from(ReferenceData data) {
+        if (data == null) {
+            return null;
+        }
         return new ReferenceDataResponse(data.id(), data.nombre());
     }
 }

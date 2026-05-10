@@ -14,6 +14,10 @@ import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
+@Tag(name = "Tipo Vehículo", description = "Gestión de tipos de vehículos")
 @RestController
 @RequestMapping("/tipo-vehiculo")
 @RequiredArgsConstructor
@@ -22,6 +26,7 @@ public class TipoVehiculoController {
 
     private final TipoVehiculoService tipoVehiculoService;
 
+    @Operation(summary = "Crear un tipo de vehículo", description = "Crea un nuevo tipo de vehículo en el sistema.")
     @PostMapping
     public ResponseEntity<TipoVehiculoResponse> create(@Valid @RequestBody TipoVehiculoRequest request) {
         TipoVehiculo created = tipoVehiculoService.create(request.toDomain());
@@ -30,6 +35,7 @@ public class TipoVehiculoController {
                 .body(TipoVehiculoResponse.from(created));
     }
 
+    @Operation(summary = "Listar tipos de vehículos", description = "Lista todos los tipos de vehículos disponibles.")
     @GetMapping
     public ResponseEntity<List<TipoVehiculoResponse>> list() {
         List<TipoVehiculoResponse> result = tipoVehiculoService.findAll().stream()
@@ -38,6 +44,7 @@ public class TipoVehiculoController {
         return ResponseEntity.ok(result);
     }
 
+    @Operation(summary = "Obtener un tipo de vehículo", description = "Obtiene un tipo de vehículo por su ID.")
     @GetMapping("/{id}")
     public ResponseEntity<TipoVehiculoResponse> getById(@PathVariable Long id) {
         return tipoVehiculoService.findById(id)
@@ -45,12 +52,14 @@ public class TipoVehiculoController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
+    @Operation(summary = "Actualizar un tipo de vehículo", description = "Actualiza los datos de un tipo de vehículo existente.")
     @PutMapping("/{id}")
     public ResponseEntity<TipoVehiculoResponse> update(@PathVariable Long id, @Valid @RequestBody TipoVehiculoRequest request) {
         TipoVehiculo updated = tipoVehiculoService.update(id, request.toDomain());
         return ResponseEntity.ok(TipoVehiculoResponse.from(updated));
     }
 
+    @Operation(summary = "Eliminar un tipo de vehículo", description = "Elimina un tipo de vehículo por su ID.")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         tipoVehiculoService.deleteById(id);

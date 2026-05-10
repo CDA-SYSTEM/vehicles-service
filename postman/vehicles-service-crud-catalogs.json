@@ -1,14 +1,15 @@
 {
   "info": {
     "name": "Vehicles Service API - CRUD Catálogos",
-    "description": "API para el servicio de vehículos con CRUD completo para catálogos",
+    "description": "API para el servicio de vehículos con CRUD completo para catálogos.\n\n---\nVariables y URLs (evitar `http:///...` y hosts vacíos):\n\n1. **Solo `baseUrl` (camelCase)** en los requests: `{{baseUrl}}/ruta`. No uses `baseurl`, `BASE_URL` ni otros nombres en esta colección.\n2. **Globals / Environments**: no definas variables con nombres parecidos (`baseurl`, `urlBase`, `host`, etc.) que confundan o pisen el valor. Si usas Environment, la clave debe ser exactamente **`baseUrl`** o deja solo la variable de colección.\n3. **Reimportar la colección**: en Postman elige la opción que **no sobrescriba** variables existentes si ya ajustaste `baseUrl`, o tras importar revisa **Collection → Variables** y confirma `baseUrl = http://localhost:8080` (sin barra final).\n4. **URLs en este archivo**: cada request incluye `url.raw` (`{{baseUrl}}/...`) y `url.path` (segmentos) como en el export estándar de Postman, para que al importar se vea bien la ruta en la UI; la petición real sigue usando el `raw`.",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "variable": [
     {
       "key": "baseUrl",
       "value": "http://localhost:8080",
-      "type": "string"
+      "type": "string",
+      "description": "URL base del servicio (camelCase obligatorio: baseUrl). Sin barra final. No duplicar como baseurl en Globals/Environments."
     }
   ],
   "item": [
@@ -21,7 +22,11 @@
             "method": "GET",
             "url": {
               "raw": "{{baseUrl}}/api/v1/health",
-              "path": ["api", "v1", "health"]
+              "path": [
+                "api",
+                "v1",
+                "health"
+              ]
             }
           },
           "response": []
@@ -37,7 +42,9 @@
             "method": "POST",
             "url": {
               "raw": "{{baseUrl}}/marca",
-              "path": ["marca"]
+              "path": [
+                "marca"
+              ]
             },
             "header": [
               {
@@ -58,7 +65,9 @@
             "method": "GET",
             "url": {
               "raw": "{{baseUrl}}/marca",
-              "path": ["marca"]
+              "path": [
+                "marca"
+              ]
             }
           },
           "response": []
@@ -69,7 +78,10 @@
             "method": "GET",
             "url": {
               "raw": "{{baseUrl}}/marca/1",
-              "path": ["marca", "1"]
+              "path": [
+                "marca",
+                "1"
+              ]
             }
           },
           "response": []
@@ -80,7 +92,10 @@
             "method": "PUT",
             "url": {
               "raw": "{{baseUrl}}/marca/1",
-              "path": ["marca", "1"]
+              "path": [
+                "marca",
+                "1"
+              ]
             },
             "header": [
               {
@@ -101,7 +116,10 @@
             "method": "DELETE",
             "url": {
               "raw": "{{baseUrl}}/marca/1",
-              "path": ["marca", "1"]
+              "path": [
+                "marca",
+                "1"
+              ]
             }
           },
           "response": []
@@ -117,7 +135,9 @@
             "method": "POST",
             "url": {
               "raw": "{{baseUrl}}/clase",
-              "path": ["clase"]
+              "path": [
+                "clase"
+              ]
             },
             "header": [
               {
@@ -138,7 +158,9 @@
             "method": "GET",
             "url": {
               "raw": "{{baseUrl}}/clase",
-              "path": ["clase"]
+              "path": [
+                "clase"
+              ]
             }
           },
           "response": []
@@ -149,7 +171,10 @@
             "method": "GET",
             "url": {
               "raw": "{{baseUrl}}/clase/1",
-              "path": ["clase", "1"]
+              "path": [
+                "clase",
+                "1"
+              ]
             }
           },
           "response": []
@@ -160,7 +185,10 @@
             "method": "PUT",
             "url": {
               "raw": "{{baseUrl}}/clase/1",
-              "path": ["clase", "1"]
+              "path": [
+                "clase",
+                "1"
+              ]
             },
             "header": [
               {
@@ -181,7 +209,10 @@
             "method": "DELETE",
             "url": {
               "raw": "{{baseUrl}}/clase/1",
-              "path": ["clase", "1"]
+              "path": [
+                "clase",
+                "1"
+              ]
             }
           },
           "response": []
@@ -197,7 +228,9 @@
             "method": "POST",
             "url": {
               "raw": "{{baseUrl}}/linea",
-              "path": ["linea"]
+              "path": [
+                "linea"
+              ]
             },
             "header": [
               {
@@ -218,7 +251,9 @@
             "method": "GET",
             "url": {
               "raw": "{{baseUrl}}/linea",
-              "path": ["linea"]
+              "path": [
+                "linea"
+              ]
             }
           },
           "response": []
@@ -229,7 +264,10 @@
             "method": "GET",
             "url": {
               "raw": "{{baseUrl}}/linea/1",
-              "path": ["linea", "1"]
+              "path": [
+                "linea",
+                "1"
+              ]
             }
           },
           "response": []
@@ -240,7 +278,10 @@
             "method": "PUT",
             "url": {
               "raw": "{{baseUrl}}/linea/1",
-              "path": ["linea", "1"]
+              "path": [
+                "linea",
+                "1"
+              ]
             },
             "header": [
               {
@@ -261,7 +302,10 @@
             "method": "DELETE",
             "url": {
               "raw": "{{baseUrl}}/linea/1",
-              "path": ["linea", "1"]
+              "path": [
+                "linea",
+                "1"
+              ]
             }
           },
           "response": []
@@ -277,7 +321,9 @@
             "method": "POST",
             "url": {
               "raw": "{{baseUrl}}/color",
-              "path": ["color"]
+              "path": [
+                "color"
+              ]
             },
             "header": [
               {
@@ -298,7 +344,9 @@
             "method": "GET",
             "url": {
               "raw": "{{baseUrl}}/color",
-              "path": ["color"]
+              "path": [
+                "color"
+              ]
             }
           },
           "response": []
@@ -309,7 +357,10 @@
             "method": "GET",
             "url": {
               "raw": "{{baseUrl}}/color/1",
-              "path": ["color", "1"]
+              "path": [
+                "color",
+                "1"
+              ]
             }
           },
           "response": []
@@ -320,7 +371,10 @@
             "method": "PUT",
             "url": {
               "raw": "{{baseUrl}}/color/1",
-              "path": ["color", "1"]
+              "path": [
+                "color",
+                "1"
+              ]
             },
             "header": [
               {
@@ -341,7 +395,10 @@
             "method": "DELETE",
             "url": {
               "raw": "{{baseUrl}}/color/1",
-              "path": ["color", "1"]
+              "path": [
+                "color",
+                "1"
+              ]
             }
           },
           "response": []
@@ -357,7 +414,9 @@
             "method": "POST",
             "url": {
               "raw": "{{baseUrl}}/tipo-vehiculo",
-              "path": ["tipo-vehiculo"]
+              "path": [
+                "tipo-vehiculo"
+              ]
             },
             "header": [
               {
@@ -378,7 +437,9 @@
             "method": "GET",
             "url": {
               "raw": "{{baseUrl}}/tipo-vehiculo",
-              "path": ["tipo-vehiculo"]
+              "path": [
+                "tipo-vehiculo"
+              ]
             }
           },
           "response": []
@@ -389,7 +450,10 @@
             "method": "GET",
             "url": {
               "raw": "{{baseUrl}}/tipo-vehiculo/1",
-              "path": ["tipo-vehiculo", "1"]
+              "path": [
+                "tipo-vehiculo",
+                "1"
+              ]
             }
           },
           "response": []
@@ -400,7 +464,10 @@
             "method": "PUT",
             "url": {
               "raw": "{{baseUrl}}/tipo-vehiculo/1",
-              "path": ["tipo-vehiculo", "1"]
+              "path": [
+                "tipo-vehiculo",
+                "1"
+              ]
             },
             "header": [
               {
@@ -421,7 +488,10 @@
             "method": "DELETE",
             "url": {
               "raw": "{{baseUrl}}/tipo-vehiculo/1",
-              "path": ["tipo-vehiculo", "1"]
+              "path": [
+                "tipo-vehiculo",
+                "1"
+              ]
             }
           },
           "response": []
@@ -437,7 +507,9 @@
             "method": "POST",
             "url": {
               "raw": "{{baseUrl}}/tipo-combustible",
-              "path": ["tipo-combustible"]
+              "path": [
+                "tipo-combustible"
+              ]
             },
             "header": [
               {
@@ -458,7 +530,9 @@
             "method": "GET",
             "url": {
               "raw": "{{baseUrl}}/tipo-combustible",
-              "path": ["tipo-combustible"]
+              "path": [
+                "tipo-combustible"
+              ]
             }
           },
           "response": []
@@ -469,7 +543,10 @@
             "method": "GET",
             "url": {
               "raw": "{{baseUrl}}/tipo-combustible/1",
-              "path": ["tipo-combustible", "1"]
+              "path": [
+                "tipo-combustible",
+                "1"
+              ]
             }
           },
           "response": []
@@ -480,7 +557,10 @@
             "method": "PUT",
             "url": {
               "raw": "{{baseUrl}}/tipo-combustible/1",
-              "path": ["tipo-combustible", "1"]
+              "path": [
+                "tipo-combustible",
+                "1"
+              ]
             },
             "header": [
               {
@@ -501,7 +581,10 @@
             "method": "DELETE",
             "url": {
               "raw": "{{baseUrl}}/tipo-combustible/1",
-              "path": ["tipo-combustible", "1"]
+              "path": [
+                "tipo-combustible",
+                "1"
+              ]
             }
           },
           "response": []
@@ -517,7 +600,9 @@
             "method": "POST",
             "url": {
               "raw": "{{baseUrl}}/tipo-servicio",
-              "path": ["tipo-servicio"]
+              "path": [
+                "tipo-servicio"
+              ]
             },
             "header": [
               {
@@ -538,7 +623,9 @@
             "method": "GET",
             "url": {
               "raw": "{{baseUrl}}/tipo-servicio",
-              "path": ["tipo-servicio"]
+              "path": [
+                "tipo-servicio"
+              ]
             }
           },
           "response": []
@@ -549,7 +636,10 @@
             "method": "GET",
             "url": {
               "raw": "{{baseUrl}}/tipo-servicio/1",
-              "path": ["tipo-servicio", "1"]
+              "path": [
+                "tipo-servicio",
+                "1"
+              ]
             }
           },
           "response": []
@@ -560,7 +650,10 @@
             "method": "PUT",
             "url": {
               "raw": "{{baseUrl}}/tipo-servicio/1",
-              "path": ["tipo-servicio", "1"]
+              "path": [
+                "tipo-servicio",
+                "1"
+              ]
             },
             "header": [
               {
@@ -581,7 +674,10 @@
             "method": "DELETE",
             "url": {
               "raw": "{{baseUrl}}/tipo-servicio/1",
-              "path": ["tipo-servicio", "1"]
+              "path": [
+                "tipo-servicio",
+                "1"
+              ]
             }
           },
           "response": []
@@ -597,7 +693,9 @@
             "method": "POST",
             "url": {
               "raw": "{{baseUrl}}/vehiculo",
-              "path": ["vehiculo"]
+              "path": [
+                "vehiculo"
+              ]
             },
             "header": [
               {
@@ -618,7 +716,24 @@
             "method": "GET",
             "url": {
               "raw": "{{baseUrl}}/vehiculo",
-              "path": ["vehiculo"]
+              "path": [
+                "vehiculo"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Listar vehículos por clienteId",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/vehiculo/cliente/CLI-001",
+              "path": [
+                "vehiculo",
+                "cliente",
+                "CLI-001"
+              ]
             }
           },
           "response": []
@@ -629,7 +744,10 @@
             "method": "GET",
             "url": {
               "raw": "{{baseUrl}}/vehiculo/1",
-              "path": ["vehiculo", "1"]
+              "path": [
+                "vehiculo",
+                "1"
+              ]
             }
           },
           "response": []
@@ -640,7 +758,10 @@
             "method": "PUT",
             "url": {
               "raw": "{{baseUrl}}/vehiculo/1",
-              "path": ["vehiculo", "1"]
+              "path": [
+                "vehiculo",
+                "1"
+              ]
             },
             "header": [
               {
@@ -661,7 +782,10 @@
             "method": "DELETE",
             "url": {
               "raw": "{{baseUrl}}/vehiculo/1",
-              "path": ["vehiculo", "1"]
+              "path": [
+                "vehiculo",
+                "1"
+              ]
             }
           },
           "response": []

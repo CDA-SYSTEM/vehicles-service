@@ -23,6 +23,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.net.URI;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
+@Tag(name = "Vehicle", description = "Gestión de vehículos")
 @RestController
 @RequestMapping("/vehiculo")
 @RequiredArgsConstructor
@@ -31,6 +35,7 @@ public class VehicleController {
 
     private final VehicleUseCase vehicleUseCase;
 
+    @Operation(summary = "Crear un vehículo", description = "Crea un nuevo vehículo en el sistema.")
     @PostMapping
     public ResponseEntity<VehicleResponseDto> createVehicle(@Valid @RequestBody CreateVehicleRequest request) {
         var response = vehicleUseCase.createVehicle(request.toCommand());
@@ -39,6 +44,7 @@ public class VehicleController {
                 .body(VehicleResponseDto.from(response));
     }
 
+    @Operation(summary = "Obtener un vehículo", description = "Obtiene un vehículo por su ID.")
     @GetMapping("/{id}")
     public ResponseEntity<VehicleResponseDto> getVehicleById(@PathVariable Long id) {
         return vehicleUseCase.findVehicleById(id)
@@ -47,6 +53,7 @@ public class VehicleController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
+    @Operation(summary = "Listar vehículos", description = "Lista todos los vehículos con paginación.")
     @GetMapping
     public ResponseEntity<Page<VehicleResponseDto>> listVehicles(
             @RequestParam(required = false) String clienteId,
@@ -56,6 +63,17 @@ public class VehicleController {
         return ResponseEntity.ok(vehicles);
     }
 
+    @Operation(summary = "Listar vehículos por cliente", description = "Lista los vehículos asociados a un cliente por su ID.")
+    @GetMapping("/cliente/{clienteId}")
+    public ResponseEntity<Page<VehicleResponseDto>> listVehiclesByClienteId(
+            @PathVariable String clienteId,
+            @PageableDefault(size = 20, page = 0) Pageable pageable) {
+        Page<VehicleResponseDto> vehicles = vehicleUseCase.findVehicles(clienteId, pageable)
+                .map(VehicleResponseDto::from);
+        return ResponseEntity.ok(vehicles);
+    }
+
+    @Operation(summary = "Actualizar un vehículo", description = "Actualiza los datos de un vehículo existente.")
     @PutMapping("/{id}")
     public ResponseEntity<VehicleResponseDto> updateVehicle(
             @PathVariable Long id,
@@ -66,6 +84,7 @@ public class VehicleController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
+    @Operation(summary = "Eliminar un vehículo", description = "Elimina un vehículo por su ID.")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteVehicle(@PathVariable Long id) {
         vehicleUseCase.deleteVehicle(id);
