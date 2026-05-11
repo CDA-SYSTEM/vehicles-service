@@ -24,7 +24,9 @@ import org.springframework.web.bind.annotation.RestController;
 import java.net.URI;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springdoc.core.annotations.ParameterObject;
 
 @Tag(name = "Vehicle", description = "Gestión de vehículos")
 @RestController
@@ -44,29 +46,40 @@ public class VehicleController {
                 .body(VehicleResponseDto.from(response));
     }
 
-    @Operation(summary = "Obtener un vehículo", description = "Obtiene un vehículo por su ID.")
+    @Operation(summary = "Obtener un vehículo", description = "Obtiene un vehículo por su ID, con catálogos relacionados (id y nombre).")
     @GetMapping("/{id}")
-    public ResponseEntity<VehicleResponseDto> getVehicleById(@PathVariable Long id) {
+    public ResponseEntity<VehicleResponseDto> getVehicleById(
+            @Parameter(description = "Identificador numérico del vehículo", required = true)
+            @PathVariable Long id) {
         return vehicleUseCase.findVehicleById(id)
                 .map(VehicleResponseDto::from)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @Operation(summary = "Listar vehículos", description = "Lista todos los vehículos con paginación.")
+    @Operation(
+            summary = "Listar vehículos",
+            description = "Lista vehículos con paginación Spring (`page`, `size`, `sort`). "
+                    + "Opcionalmente filtra por query `clienteId`.")
     @GetMapping
     public ResponseEntity<Page<VehicleResponseDto>> listVehicles(
+            @Parameter(description = "Si se envía, solo vehículos de ese cliente")
             @RequestParam(required = false) String clienteId,
+            @ParameterObject
             @PageableDefault(size = 20, page = 0) Pageable pageable) {
         Page<VehicleResponseDto> vehicles = vehicleUseCase.findVehicles(clienteId, pageable)
                 .map(VehicleResponseDto::from);
         return ResponseEntity.ok(vehicles);
     }
 
-    @Operation(summary = "Listar vehículos por cliente", description = "Lista los vehículos asociados a un cliente por su ID.")
+    @Operation(
+            summary = "Listar vehículos por cliente",
+            description = "Equivalente a listar con `clienteId` fijado en la ruta. Paginación: `page`, `size`, `sort`.")
     @GetMapping("/cliente/{clienteId}")
     public ResponseEntity<Page<VehicleResponseDto>> listVehiclesByClienteId(
+            @Parameter(description = "Identificador del cliente", example = "CLI-001", required = true)
             @PathVariable String clienteId,
+            @ParameterObject
             @PageableDefault(size = 20, page = 0) Pageable pageable) {
         Page<VehicleResponseDto> vehicles = vehicleUseCase.findVehicles(clienteId, pageable)
                 .map(VehicleResponseDto::from);
@@ -76,6 +89,7 @@ public class VehicleController {
     @Operation(summary = "Actualizar un vehículo", description = "Actualiza los datos de un vehículo existente.")
     @PutMapping("/{id}")
     public ResponseEntity<VehicleResponseDto> updateVehicle(
+            @Parameter(description = "Identificador numérico del vehículo", required = true)
             @PathVariable Long id,
             @Valid @RequestBody UpdateVehicleRequest request) {
         return vehicleUseCase.updateVehicle(id, request.toCommand())
@@ -84,9 +98,11 @@ public class VehicleController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @Operation(summary = "Eliminar un vehículo", description = "Elimina un vehículo por su ID.")
+    @Operation(summary = "Eliminar un vehículo", description = "Elimina un vehículo por su ID. Respuesta 204 sin cuerpo.")
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteVehicle(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteVehicle(
+            @Parameter(description = "Identificador numérico del vehículo", required = true)
+            @PathVariable Long id) {
         vehicleUseCase.deleteVehicle(id);
         return ResponseEntity.noContent().build();
     }

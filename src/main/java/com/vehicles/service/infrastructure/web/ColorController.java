@@ -14,6 +14,10 @@ import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
+@Tag(name = "Colores", description = "CRUD del catálogo de colores")
 @RestController
 @RequestMapping("/color")
 @RequiredArgsConstructor
@@ -22,6 +26,7 @@ public class ColorController {
 
     private final ColorService colorService;
 
+    @Operation(summary = "Crear color", description = "Registra un nuevo color. Responde 201 con la entidad creada.")
     @PostMapping
     public ResponseEntity<ColorResponse> create(@Valid @RequestBody ColorRequest request) {
         Color created = colorService.create(request.toDomain());
@@ -30,6 +35,7 @@ public class ColorController {
                 .body(ColorResponse.from(created));
     }
 
+    @Operation(summary = "Listar colores", description = "Devuelve todos los colores registrados.")
     @GetMapping
     public ResponseEntity<List<ColorResponse>> list() {
         List<ColorResponse> result = colorService.findAll().stream()
@@ -38,6 +44,7 @@ public class ColorController {
         return ResponseEntity.ok(result);
     }
 
+    @Operation(summary = "Obtener color por id", description = "Consulta un color por su identificador. 404 si no existe.")
     @GetMapping("/{id}")
     public ResponseEntity<ColorResponse> getById(@PathVariable Long id) {
         return colorService.findById(id)
@@ -45,12 +52,14 @@ public class ColorController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
+    @Operation(summary = "Actualizar color", description = "Actualiza los datos del color indicado.")
     @PutMapping("/{id}")
     public ResponseEntity<ColorResponse> update(@PathVariable Long id, @Valid @RequestBody ColorRequest request) {
         Color updated = colorService.update(id, request.toDomain());
         return ResponseEntity.ok(ColorResponse.from(updated));
     }
 
+    @Operation(summary = "Eliminar color", description = "Elimina el color por id. Respuesta 204 sin cuerpo.")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         colorService.deleteById(id);

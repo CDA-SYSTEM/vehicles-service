@@ -22,6 +22,15 @@ import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
+@Tag(
+        name = "Catálogos unificados (v1)",
+        description = """
+                CRUD genérico sobre /api/v1/catalogs/{type}. El path `type` debe coincidir con un catálogo: \
+                marcas, clases, lineas, colores, tipos-vehiculo, tipos-combustible, tipos-servicio.""")
 @RestController
 @RequestMapping("/api/v1/catalogs/{type}")
 @RequiredArgsConstructor
@@ -30,8 +39,13 @@ public class ReferenceDataController {
 
     private final ReferenceDataUseCase referenceDataUseCase;
 
+    @Operation(summary = "Crear ítem de catálogo", description = "Crea un registro en el catálogo indicado por `type`.")
     @PostMapping
     public ResponseEntity<ReferenceDataResponse> create(
+            @Parameter(
+                    description = "Catálogo destino",
+                    example = "marcas",
+                    required = true)
             @PathVariable String type,
             @Valid @RequestBody ReferenceDataRequest request) {
         ReferenceType referenceType = ReferenceType.fromPath(type);
@@ -41,8 +55,11 @@ public class ReferenceDataController {
                 .body(ReferenceDataResponse.from(created));
     }
 
+    @Operation(summary = "Listar catálogo", description = "Devuelve todos los ítems del catálogo `type`.")
     @GetMapping
-    public ResponseEntity<List<ReferenceDataResponse>> list(@PathVariable String type) {
+    public ResponseEntity<List<ReferenceDataResponse>> list(
+            @Parameter(description = "Catálogo", example = "marcas", required = true)
+            @PathVariable String type) {
         ReferenceType referenceType = ReferenceType.fromPath(type);
         List<ReferenceDataResponse> result = referenceDataUseCase.findAll(referenceType).stream()
                 .map(ReferenceDataResponse::from)
@@ -50,9 +67,12 @@ public class ReferenceDataController {
         return ResponseEntity.ok(result);
     }
 
+    @Operation(summary = "Obtener ítem por id", description = "Consulta un registro del catálogo. 404 si no existe.")
     @GetMapping("/{id}")
     public ResponseEntity<ReferenceDataResponse> findById(
+            @Parameter(description = "Catálogo", example = "marcas", required = true)
             @PathVariable String type,
+            @Parameter(description = "Identificador numérico del ítem", required = true)
             @PathVariable Long id) {
         ReferenceType referenceType = ReferenceType.fromPath(type);
         return referenceDataUseCase.findById(referenceType, id)
@@ -61,9 +81,12 @@ public class ReferenceDataController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
+    @Operation(summary = "Actualizar ítem", description = "Actualiza nombre u otros datos del registro en el catálogo.")
     @PutMapping("/{id}")
     public ResponseEntity<ReferenceDataResponse> update(
+            @Parameter(description = "Catálogo", example = "marcas", required = true)
             @PathVariable String type,
+            @Parameter(description = "Identificador numérico", required = true)
             @PathVariable Long id,
             @Valid @RequestBody ReferenceDataRequest request) {
         ReferenceType referenceType = ReferenceType.fromPath(type);
@@ -71,9 +94,12 @@ public class ReferenceDataController {
         return ResponseEntity.ok(ReferenceDataResponse.from(updated));
     }
 
+    @Operation(summary = "Eliminar ítem", description = "Elimina el registro del catálogo. Respuesta 204 sin cuerpo.")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(
+            @Parameter(description = "Catálogo", example = "marcas", required = true)
             @PathVariable String type,
+            @Parameter(description = "Identificador numérico", required = true)
             @PathVariable Long id) {
         ReferenceType referenceType = ReferenceType.fromPath(type);
         referenceDataUseCase.deleteById(referenceType, id);
