@@ -7,7 +7,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Component
 public class ApiKeyInterceptor implements HandlerInterceptor {

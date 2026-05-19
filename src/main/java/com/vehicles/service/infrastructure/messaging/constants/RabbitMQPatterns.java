@@ -2,7 +2,6 @@ package com.vehicles.service.infrastructure.messaging.constants;
 
 public class RabbitMQPatterns {
     private RabbitMQPatterns() {
-        throw new AssertionError("No instances of RabbitMQPatterns");
     }
 
     /**

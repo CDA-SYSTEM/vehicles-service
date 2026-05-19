@@ -1,8 +1,11 @@
 package com.vehicles.service.config;
 
+import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Contact;
 import io.swagger.v3.oas.models.info.Info;
+import io.swagger.v3.oas.models.security.SecurityRequirement;
+import io.swagger.v3.oas.models.security.SecurityScheme;
 import io.swagger.v3.oas.models.servers.Server;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,6 +14,8 @@ import java.util.List;
 
 @Configuration
 public class OpenApiConfig {
+
+    private static final String SECURITY_SCHEME_NAME = "ApiKeyAuth";
 
     @Bean
     public OpenAPI vehiclesServiceOpenAPI() {
@@ -21,6 +26,9 @@ public class OpenApiConfig {
                         .description("""
                                 Gestión de vehículos y catálogos de referencia.
 
+                                ## Autenticación
+                                Todas las rutas (excepto `/api/v1/health`) requieren el header `x-api-key`.
+                                
                                 Rutas principales:
                                 - Catálogos directos: `/marca`, `/clase`, `/linea`, `/color`, `/tipo-vehiculo`, `/tipo-combustible`, `/tipo-servicio`
                                 - Vehículos: `/vehiculo` (incluye listado paginado y filtro por `clienteId`)
@@ -32,6 +40,14 @@ public class OpenApiConfig {
                         new Server()
                                 .url("/")
                                 .description("Mismo host y puerto donde se ejecuta la aplicación")
-                ));
+                ))
+                .components(new Components()
+                        .addSecuritySchemes(SECURITY_SCHEME_NAME, new SecurityScheme()
+                                .name("x-api-key")
+                                .type(SecurityScheme.Type.APIKEY)
+                                .in(SecurityScheme.In.HEADER)
+                                .description("API Key para autenticación. Configurada mediante la variable API_KEY en .env")))
+                .addSecurityItem(new SecurityRequirement()
+                        .addList(SECURITY_SCHEME_NAME));
     }
 }

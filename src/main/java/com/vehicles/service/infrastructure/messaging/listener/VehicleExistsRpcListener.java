@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.vehicles.service.application.port.out.VehiclePersistencePort;
 import com.vehicles.service.infrastructure.messaging.constants.RabbitMQPatterns;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.core.MessageBuilder;
@@ -33,6 +34,7 @@ import java.nio.charset.StandardCharsets;
  */
 @Slf4j
 @Component
+@SuppressFBWarnings("EI_EXPOSE_REP2")
 public class VehicleExistsRpcListener {
 
     private final RabbitTemplate rabbitTemplate;
