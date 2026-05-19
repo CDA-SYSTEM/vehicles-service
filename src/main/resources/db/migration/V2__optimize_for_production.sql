@@ -27,13 +27,30 @@ CREATE INDEX IF NOT EXISTS idx_vehiculo_placa ON vehiculo (placa);
 -- 2. Unique constraints en catálogos (evita duplicados)
 -- -----------------------------------------------------------
 
-ALTER TABLE marca ADD CONSTRAINT IF NOT EXISTS uq_marca_nombre UNIQUE (nombre);
-ALTER TABLE clase ADD CONSTRAINT IF NOT EXISTS uq_clase_nombre UNIQUE (nombre);
-ALTER TABLE linea ADD CONSTRAINT IF NOT EXISTS uq_linea_nombre UNIQUE (nombre);
-ALTER TABLE color ADD CONSTRAINT IF NOT EXISTS uq_color_nombre UNIQUE (nombre);
-ALTER TABLE tipo_vehiculo ADD CONSTRAINT IF NOT EXISTS uq_tipo_vehiculo_nombre UNIQUE (nombre);
-ALTER TABLE tipo_combustible ADD CONSTRAINT IF NOT EXISTS uq_tipo_combustible_nombre UNIQUE (nombre);
-ALTER TABLE tipo_servicio ADD CONSTRAINT IF NOT EXISTS uq_tipo_servicio_nombre UNIQUE (nombre);
+DO $$
+BEGIN
+    IF NOT EXISTS (SELECT 1 FROM pg_constraint WHERE conname = 'uq_marca_nombre') THEN
+        ALTER TABLE marca ADD CONSTRAINT uq_marca_nombre UNIQUE (nombre);
+    END IF;
+    IF NOT EXISTS (SELECT 1 FROM pg_constraint WHERE conname = 'uq_clase_nombre') THEN
+        ALTER TABLE clase ADD CONSTRAINT uq_clase_nombre UNIQUE (nombre);
+    END IF;
+    IF NOT EXISTS (SELECT 1 FROM pg_constraint WHERE conname = 'uq_linea_nombre') THEN
+        ALTER TABLE linea ADD CONSTRAINT uq_linea_nombre UNIQUE (nombre);
+    END IF;
+    IF NOT EXISTS (SELECT 1 FROM pg_constraint WHERE conname = 'uq_color_nombre') THEN
+        ALTER TABLE color ADD CONSTRAINT uq_color_nombre UNIQUE (nombre);
+    END IF;
+    IF NOT EXISTS (SELECT 1 FROM pg_constraint WHERE conname = 'uq_tipo_vehiculo_nombre') THEN
+        ALTER TABLE tipo_vehiculo ADD CONSTRAINT uq_tipo_vehiculo_nombre UNIQUE (nombre);
+    END IF;
+    IF NOT EXISTS (SELECT 1 FROM pg_constraint WHERE conname = 'uq_tipo_combustible_nombre') THEN
+        ALTER TABLE tipo_combustible ADD CONSTRAINT uq_tipo_combustible_nombre UNIQUE (nombre);
+    END IF;
+    IF NOT EXISTS (SELECT 1 FROM pg_constraint WHERE conname = 'uq_tipo_servicio_nombre') THEN
+        ALTER TABLE tipo_servicio ADD CONSTRAINT uq_tipo_servicio_nombre UNIQUE (nombre);
+    END IF;
+END $$;
 
 -- -----------------------------------------------------------
 -- 3. Audit columns en catálogos
