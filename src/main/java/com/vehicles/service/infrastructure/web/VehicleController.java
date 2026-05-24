@@ -37,7 +37,7 @@ public class VehicleController {
 
     private final VehicleUseCase vehicleUseCase;
 
-    @Operation(summary = "Crear un vehículo", description = "Crea un nuevo vehículo en el sistema.")
+    @Operation(summary = "Crear un vehículo", description = "Crea un nuevo vehículo en el sistema. Tras guardar, publica un evento asíncrono en RabbitMQ (routing key: vehiculo.registro.creado) con placa, marca, modelo, tipo y propietarioId para que el tracker service cree el nodo y la relación en Neo4j.")
     @PostMapping
     public ResponseEntity<VehicleResponseDto> createVehicle(@Valid @RequestBody CreateVehicleRequest request) {
         var response = vehicleUseCase.createVehicle(request.toCommand());

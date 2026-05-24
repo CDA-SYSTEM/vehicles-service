@@ -18,4 +18,11 @@ public class RabbitMQPatterns {
      * Cola específica del vehicle-service para escuchar requests RPC
      */
     public static final String VEHICLES_QUEUE_PROPERTY_KEY = "app.rabbitmq.vehicle-queue";
+
+    /**
+     * Routing key para evento de vehículo registrado.
+     * El tracker service (Flask) consume este patrón para crear el nodo (:Vehiculo)
+     * y la relación (Cliente)-[:POSEE]->(Vehiculo) en Neo4j.
+     */
+    public static final String VEHICLE_CREATED_PATTERN = "vehiculo.registro.creado";
 }

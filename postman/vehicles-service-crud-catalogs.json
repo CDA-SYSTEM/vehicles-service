@@ -7,15 +7,15 @@
   "variable": [
     {
       "key": "baseUrl",
-      "value": "http://localhost:8080",
+      "value": "http://localhost:9000",
       "type": "string",
-      "description": "URL base del servicio (camelCase obligatorio: baseUrl). Sin barra final. No duplicar como baseurl en Globals/Environments."
+      "description": "URL base del servicio (camelCase obligatorio: baseUrl). Sin barra final. Local: http://localhost:8080, Servidor: http://100.94.204.56:9000"
     },
     {
       "key": "apiKey",
-      "value": "",
+      "value": "540dda2ab2ef770dff4fbc5ee869f898875040ca7b3eefc2bd7c747a7bf310f2",
       "type": "string",
-      "description": "API Key para autenticación. Enviada como header x-api-key. Debe coincidir con API_KEY del .env."
+      "description": "API Key para autenticación. Enviada como header x-api-key. Local: 7b00f798429fc8ef840ea4720277117f, Servidor: 540dda2ab2ef770dff4fbc5ee869f898875040ca7b3eefc2bd7c747a7bf310f2"
     }
   ],
   "header": [

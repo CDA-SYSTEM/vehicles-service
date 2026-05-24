@@ -29,11 +29,27 @@ public class OpenApiConfig {
                                 ## Autenticación
                                 Todas las rutas (excepto `/api/v1/health`) requieren el header `x-api-key`.
                                 
-                                Rutas principales:
+                                ## Rutas principales
                                 - Catálogos directos: `/marca`, `/clase`, `/linea`, `/color`, `/tipo-vehiculo`, `/tipo-combustible`, `/tipo-servicio`
                                 - Vehículos: `/vehiculo` (incluye listado paginado y filtro por `clienteId`)
                                 - Salud: `GET /api/v1/health`
                                 - Catálogo unificado: `/api/v1/catalogs/{type}` con type = `marcas`, `clases`, `lineas`, `colores`, `tipos-vehiculo`, `tipos-combustible`, `tipos-servicio`
+
+                                ## Integración asíncrona (RabbitMQ)
+                                Al crear un vehículo (`POST /vehiculo`), el servicio publica un evento en RabbitMQ:
+                                - **Exchange**: `vehicles.exchange`
+                                - **Routing key**: `vehiculo.registro.creado`
+                                - **Payload**:
+                                  ```json
+                                  {
+                                    "placa": "ABC-123",
+                                    "marca": "Mazda",
+                                    "modelo": "2024",
+                                    "tipo": "Carro",
+                                    "propietarioId": "CLI-001"
+                                  }
+                                  ```
+                                El tracker service (Flask) consume este evento para crear el nodo `:Vehiculo` y la relación `(Cliente)-[:POSEE]->(Vehiculo)` en Neo4j.
                                 """)
                         .contact(new Contact().name("CDA System")))
                 .servers(List.of(
