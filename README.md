@@ -13,33 +13,45 @@ UI (React) → API Gateway → vehicles-service (Spring Boot, puerto 9000)
 
 ## Variables de entorno
 
-El servicio se configura mediante variables de entorno (inyectadas por Docker o vía `.env` + `DotenvLoader`).
+El servicio se configura mediante variables de entorno (inyectadas por Docker o vía `.env` + `DotenvLoader`). Spring Boot detecta automáticamente las variables con prefijo `SPRING_`, y el `DotenvLoader` mapea las claves cortas (`DB_URL`, `API_KEY`) al nombre Spring correspondiente.
 
 ### Base de datos (PostgreSQL)
 
-| Variable | Descripción | Ejemplo |
-|----------|-------------|---------|
-| `DB_URL` | URL JDBC de conexión | `jdbc:postgresql://host:5432/vehicles` |
-| `DB_USER` | Usuario de BD | `postgres` |
-| `DB_PASSWORD` | Contraseña de BD | `1423` |
+| Variable | Descripción | Local | Servidor |
+|----------|-------------|-------|----------|
+| `SPRING_DATASOURCE_URL` | URL JDBC de conexión | `jdbc:postgresql://localhost:5432/vehicles` | `jdbc:postgresql://100.94.204.56:5432/vehicles` |
+| `SPRING_DATASOURCE_USERNAME` | Usuario de BD | `postgres` | `postgres` |
+| `SPRING_DATASOURCE_PASSWORD` | Contraseña de BD | `1234` | `1423` |
 
 ### RabbitMQ (Broker de eventos)
 
-| Variable | Descripción | Ejemplo |
-|----------|-------------|---------|
-| `RABBITMQ_HOST` | Host del broker | `100.94.204.56` |
-| `RABBITMQ_PORT` | Puerto AMQP | `5672` |
-| `RABBITMQ_QUEUE_USER` | Usuario RabbitMQ | `admin` |
-| `RABBITMQ_PASSWORD` | Contraseña RabbitMQ | `admin` |
-| `RABBITMQ_VHOST` | Virtual host | `/` |
-| `RABBITMQ_VEHICLE_QUEUE` | Cola RPC vehicle-service | `vehicle-service-queue` |
-| `RABBITMQ_RPC_TIMEOUT_MS` | Timeout RPC (ms) | `8000` |
+| Variable | Descripción | Local | Servidor |
+|----------|-------------|-------|----------|
+| `SPRING_RABBITMQ_HOST` | Host del broker | `localhost` | `100.94.204.56` |
+| `SPRING_RABBITMQ_PORT` | Puerto AMQP | `5672` | `5672` |
+| `SPRING_RABBITMQ_USERNAME` | Usuario | `guest` | `admin` |
+| `SPRING_RABBITMQ_PASSWORD` | Contraseña | `guest` | `admin123` |
+| `SPRING_RABBITMQ_VIRTUAL_HOST` | Virtual host | `/` | `/` |
+
+### Exchange de eventos (Topic)
+
+| Variable | Descripción | Valor |
+|----------|-------------|-------|
+| `APP_RABBITMQ_EVENT_EXCHANGE` | Exchange de eventos para tracker service | `cda.domain.events` |
+| `APP_RABBITMQ_ROUTING_KEY_VEHICULO` | Routing key al crear vehículo | `vehiculo.registro.creado` |
+
+### Cola RPC (form-service)
+
+| Variable | Descripción | Valor |
+|----------|-------------|-------|
+| `APP_RABBITMQ_VEHICLE_QUEUE` | Cola RPC para form-service | `vehicle-service-queue` |
+| `APP_RABBITMQ_RPC_TIMEOUT_MS` | Timeout RPC (ms) | `8000` |
 
 ### Seguridad
 
-| Variable | Descripción | Ejemplo |
-|----------|-------------|---------|
-| `API_KEY` | API Key para x-api-key header | `540dda2ab2ef...` |
+| Variable | Descripción | Local | Servidor |
+|----------|-------------|-------|----------|
+| `API_KEY` | API Key para header `x-api-key` | `7b00f798...` | `540dda2ab2...` |
 
 > La base de datos debe existir en PostgreSQL antes de ejecutar la aplicación. Flyway crea las tablas automáticamente.
 
@@ -67,7 +79,7 @@ O empaquetar y ejecutar el JAR:
 java -jar target/service-0.0.1-SNAPSHOT.jar
 ```
 
-El servicio arranca en el puerto definido por `SERVER_PORT` (por defecto `9000` en producción, `8080` en local).
+El servicio arranca en el puerto definido por `SERVER_PORT` (`9000` en servidor, `8080` en local).
 
 ## Postman Collection
 
@@ -75,8 +87,8 @@ La colección de Postman se encuentra en `postman/vehicles-service-crud-catalogs
 
 ### Configuración de variables en Postman
 
-| Variable | Valor local | Valor servidor |
-|----------|-------------|----------------|
+| Variable | Local | Servidor |
+|----------|-------|----------|
 | `baseUrl` | `http://localhost:8080` | `http://100.94.204.56:9000` |
 | `apiKey` | `7b00f798429fc8ef840ea4720277117f` | `540dda2ab2ef770dff4fbc5ee869f898875040ca7b3eefc2bd7c747a7bf310f2` |
 

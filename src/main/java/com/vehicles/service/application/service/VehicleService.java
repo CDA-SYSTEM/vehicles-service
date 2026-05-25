@@ -7,7 +7,6 @@ import com.vehicles.service.domain.model.command.CreateVehicleCommand;
 import com.vehicles.service.domain.model.command.UpdateVehicleCommand;
 import com.vehicles.service.domain.model.reference.ReferenceData;
 import com.vehicles.service.domain.model.response.VehicleResponse;
-import com.vehicles.service.infrastructure.messaging.dto.VehicleCreatedEvent;
 import com.vehicles.service.infrastructure.messaging.publisher.VehicleEventPublisher;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import lombok.RequiredArgsConstructor;
@@ -34,14 +33,7 @@ public class VehicleService implements VehicleUseCase {
     }
 
     private void publishVehicleCreated(Vehicle vehicle) {
-        VehicleCreatedEvent event = new VehicleCreatedEvent(
-                vehicle.placa(),
-                vehicle.marcaNombre(),
-                vehicle.modelo(),
-                vehicle.tipoVehiculoNombre(),
-                vehicle.clienteId()
-        );
-        eventPublisher.publishVehicleCreated(event);
+        eventPublisher.publicarVehiculoCreado(vehicle, vehicle.clienteId());
     }
 
     @Override

@@ -1,0 +1,11 @@
+version: '3.8'
+services:
+  rabbitmq-local:
+    image: rabbitmq:3-management-alpine
+    container_name: rabbitmq_dev
+    ports:
+      - "5672:5672"   # Puerto de comunicación para Springboot/Django/Flask
+      - "15672:15672" # Puerto de la interfaz web (Management UI)
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest

@@ -37,16 +37,21 @@ public class OpenApiConfig {
 
                                 ## Integración asíncrona (RabbitMQ)
                                 Al crear un vehículo (`POST /vehiculo`), el servicio publica un evento en RabbitMQ:
-                                - **Exchange**: `vehicles.exchange`
+                                - **Exchange**: `cda.domain.events` (Topic)
                                 - **Routing key**: `vehiculo.registro.creado`
-                                - **Payload**:
+                                - **Payload** (envelope):
                                   ```json
                                   {
-                                    "placa": "ABC-123",
-                                    "marca": "Mazda",
-                                    "modelo": "2024",
-                                    "tipo": "Carro",
-                                    "propietarioId": "CLI-001"
+                                    "eventId": "uuid",
+                                    "timestamp": "2026-05-24T20:00:00Z",
+                                    "eventType": "VehiculoRegistrado",
+                                    "data": {
+                                      "placa": "ABC-123",
+                                      "marca": "Mazda",
+                                      "modelo": 2024,
+                                      "tipo": "Carro",
+                                      "propietarioId": "CLI-001"
+                                    }
                                   }
                                   ```
                                 El tracker service (Flask) consume este evento para crear el nodo `:Vehiculo` y la relación `(Cliente)-[:POSEE]->(Vehiculo)` en Neo4j.

@@ -9,7 +9,7 @@
       "key": "baseUrl",
       "value": "http://localhost:9000",
       "type": "string",
-      "description": "URL base del servicio (camelCase obligatorio: baseUrl). Sin barra final. Local: http://localhost:8080, Servidor: http://100.94.204.56:9000"
+      "description": "URL base del servicio (camelCase obligatorio: baseUrl). Sin barra final. Local: http://localhost:8080, Servidor: http://100.94.204.56:9000. El servidor usa puerto 9000."
     },
     {
       "key": "apiKey",

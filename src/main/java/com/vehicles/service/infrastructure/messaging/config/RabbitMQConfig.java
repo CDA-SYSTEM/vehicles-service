@@ -5,6 +5,7 @@ import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
 import org.springframework.amqp.core.DirectExchange;
 import org.springframework.amqp.core.Queue;
+import org.springframework.amqp.core.TopicExchange;
 import org.springframework.amqp.rabbit.annotation.EnableRabbit;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.amqp.support.converter.MessageConverter;
@@ -23,8 +24,14 @@ import org.springframework.context.annotation.Configuration;
 @EnableRabbit
 public class RabbitMQConfig {
 
-    @Value("${app.rabbitmq.vehicle-queue}")
+    @Value("${app.rabbitmq.vehicle-queue:vehicle-service-queue}")
     private String vehicleQueue;
+
+    @Value("${app.rabbitmq.exchange:vehicles.exchange}")
+    private String vehiclesExchange;
+
+    @Value("${app.rabbitmq.event-exchange:cda.domain.events}")
+    private String eventExchange;
 
     /**
      * Cola donde vehicle-service escucha solicitudes RPC de verificación.
@@ -41,7 +48,7 @@ public class RabbitMQConfig {
      */
     @Bean
     public DirectExchange vehiclesExchange() {
-        return new DirectExchange(RabbitMQPatterns.VEHICLES_EXCHANGE, true, false);
+        return new DirectExchange(vehiclesExchange, true, false);
     }
 
     /**
@@ -53,6 +60,16 @@ public class RabbitMQConfig {
         return BindingBuilder.bind(vehicleQueue)
                 .to(vehiclesExchange)
                 .with(RabbitMQPatterns.VEHICLE_EXISTS_PATTERN);
+    }
+
+    /**
+     * Exchange temático para eventos de dominio.
+     * El tracker service (Flask) se suscribe a routing keys como vehiculo.registro.creado
+     * para construir el grafo relacional en Neo4j.
+     */
+    @Bean
+    public TopicExchange domainEventsExchange() {
+        return new TopicExchange(eventExchange, true, false);
     }
 
     /**
