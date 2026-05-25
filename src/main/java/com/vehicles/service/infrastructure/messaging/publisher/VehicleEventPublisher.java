@@ -25,20 +25,10 @@ public class VehicleEventPublisher {
     }
 
     public void publicarVehiculoCreado(Vehicle vehiculo, String propietarioId) {
-        Integer modelo;
-        try {
-            modelo = Integer.valueOf(vehiculo.modelo());
-        } catch (NumberFormatException e) {
-            log.warn("modelo '{}' no es numérico, se envía como 0", vehiculo.modelo());
-            modelo = 0;
-        }
-
-        VehiculoRegistradoEvent evento = VehiculoRegistradoEvent.from(
+        VehiculoRegistradoEvent evento = new VehiculoRegistradoEvent(
+                propietarioId,
                 vehiculo.placa(),
-                vehiculo.marcaNombre(),
-                modelo,
-                vehiculo.tipoVehiculoNombre(),
-                propietarioId
+                vehiculo.marcaNombre()
         );
 
         try {
