@@ -1,7 +1,9 @@
 package com.vehicles.service.infrastructure.web;
 
 import com.vehicles.service.application.port.in.VehicleUseCase;
+import com.vehicles.service.application.service.StatsService;
 import com.vehicles.service.infrastructure.web.dto.CreateVehicleRequest;
+import com.vehicles.service.infrastructure.web.dto.StatsResponse;
 import com.vehicles.service.infrastructure.web.dto.UpdateVehicleRequest;
 import com.vehicles.service.infrastructure.web.dto.VehicleResponseDto;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -36,6 +38,7 @@ import org.springdoc.core.annotations.ParameterObject;
 public class VehicleController {
 
     private final VehicleUseCase vehicleUseCase;
+    private final StatsService statsService;
 
     @Operation(summary = "Crear un vehículo", description = "Crea un nuevo vehículo en el sistema. Tras guardar, publica un evento asíncrono en RabbitMQ (routing key: vehiculo.registro.creado) con placa, marca, modelo, tipo y propietarioId para que el tracker service cree el nodo y la relación en Neo4j.")
     @PostMapping
@@ -96,6 +99,12 @@ public class VehicleController {
                 .map(VehicleResponseDto::from)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
+    }
+
+    @Operation(summary = "Estadísticas de administración", description = "Estadísticas agregadas de vehículos por marca, tipo, combustible, servicio")
+    @GetMapping("/stats")
+    public ResponseEntity<StatsResponse> getVehicleStats() {
+        return ResponseEntity.ok(statsService.getStats());
     }
 
     @Operation(summary = "Eliminar un vehículo", description = "Elimina un vehículo por su ID. Respuesta 204 sin cuerpo.")
