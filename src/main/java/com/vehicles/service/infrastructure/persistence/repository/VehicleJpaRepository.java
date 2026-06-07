@@ -23,6 +23,12 @@ public interface VehicleJpaRepository extends JpaRepository<VehicleEntity, Long>
     @EntityGraph(attributePaths = {"marca", "clase", "linea", "color", "tipoVehiculo", "tipoCombustible", "tipoServicio"})
     Page<VehicleEntity> findByClienteId(String clienteId, Pageable pageable);
 
+    @EntityGraph(attributePaths = {"marca", "clase", "linea", "color", "tipoVehiculo", "tipoCombustible", "tipoServicio"})
+    Page<VehicleEntity> findByClienteIdAndPlacaContaining(String clienteId, String placa, Pageable pageable);
+
+    @EntityGraph(attributePaths = {"marca", "clase", "linea", "color", "tipoVehiculo", "tipoCombustible", "tipoServicio"})
+    Page<VehicleEntity> findByPlacaContaining(String placa, Pageable pageable);
+
     Optional<VehicleEntity> findByPlaca(String placa);
 
     @Query("SELECT COUNT(v) FROM VehicleEntity v")

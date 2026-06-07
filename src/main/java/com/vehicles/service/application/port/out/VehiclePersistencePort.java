@@ -16,5 +16,9 @@ public interface VehiclePersistencePort {
 
     Page<Vehicle> findByClienteId(String clienteId, Pageable pageable);
 
+    Page<Vehicle> findByClienteIdAndPlacaContaining(String clienteId, String placa, Pageable pageable);
+
+    Page<Vehicle> findByPlacaContaining(String placa, Pageable pageable);
+
     void deleteById(Long id);
 }

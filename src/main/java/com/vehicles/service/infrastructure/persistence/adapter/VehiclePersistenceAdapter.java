@@ -64,6 +64,16 @@ public class VehiclePersistenceAdapter implements VehiclePersistencePort {
     }
 
     @Override
+    public Page<Vehicle> findByClienteIdAndPlacaContaining(String clienteId, String placa, Pageable pageable) {
+        return vehicleJpaRepository.findByClienteIdAndPlacaContaining(clienteId, placa, pageable).map(this::toDomain);
+    }
+
+    @Override
+    public Page<Vehicle> findByPlacaContaining(String placa, Pageable pageable) {
+        return vehicleJpaRepository.findByPlacaContaining(placa, pageable).map(this::toDomain);
+    }
+
+    @Override
     public void deleteById(Long id) {
         vehicleJpaRepository.deleteById(id);
     }

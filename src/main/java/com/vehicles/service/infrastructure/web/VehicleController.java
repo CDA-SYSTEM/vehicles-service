@@ -63,28 +63,33 @@ public class VehicleController {
     @Operation(
             summary = "Listar vehículos",
             description = "Lista vehículos con paginación Spring (`page`, `size`, `sort`). "
-                    + "Opcionalmente filtra por query `clienteId`.")
+                    + "Opcionalmente filtra por `clienteId` y/o `placa` (búsqueda parcial).")
     @GetMapping
     public ResponseEntity<Page<VehicleResponseDto>> listVehicles(
             @Parameter(description = "Si se envía, solo vehículos de ese cliente")
             @RequestParam(required = false) String clienteId,
+            @Parameter(description = "Búsqueda parcial por placa")
+            @RequestParam(required = false) String placa,
             @ParameterObject
             @PageableDefault(size = 20, page = 0) Pageable pageable) {
-        Page<VehicleResponseDto> vehicles = vehicleUseCase.findVehicles(clienteId, pageable)
+        Page<VehicleResponseDto> vehicles = vehicleUseCase.findVehicles(clienteId, placa, pageable)
                 .map(VehicleResponseDto::from);
         return ResponseEntity.ok(vehicles);
     }
 
     @Operation(
             summary = "Listar vehículos por cliente",
-            description = "Equivalente a listar con `clienteId` fijado en la ruta. Paginación: `page`, `size`, `sort`.")
+            description = "Equivalente a listar con `clienteId` fijado en la ruta. "
+                    + "Opcionalmente filtra por `placa` (búsqueda parcial). Paginación: `page`, `size`, `sort`.")
     @GetMapping("/cliente/{clienteId}")
     public ResponseEntity<Page<VehicleResponseDto>> listVehiclesByClienteId(
             @Parameter(description = "Identificador del cliente", example = "CLI-001", required = true)
             @PathVariable String clienteId,
+            @Parameter(description = "Búsqueda parcial por placa")
+            @RequestParam(required = false) String placa,
             @ParameterObject
             @PageableDefault(size = 20, page = 0) Pageable pageable) {
-        Page<VehicleResponseDto> vehicles = vehicleUseCase.findVehicles(clienteId, pageable)
+        Page<VehicleResponseDto> vehicles = vehicleUseCase.findVehicles(clienteId, placa, pageable)
                 .map(VehicleResponseDto::from);
         return ResponseEntity.ok(vehicles);
     }

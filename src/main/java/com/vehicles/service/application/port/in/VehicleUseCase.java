@@ -14,7 +14,7 @@ public interface VehicleUseCase {
 
     Optional<VehicleResponse> findVehicleById(Long id);
 
-    Page<VehicleResponse> findVehicles(String clienteId, Pageable pageable);
+    Page<VehicleResponse> findVehicles(String clienteId, String placa, Pageable pageable);
 
     Optional<VehicleResponse> updateVehicle(Long id, UpdateVehicleCommand command);
 

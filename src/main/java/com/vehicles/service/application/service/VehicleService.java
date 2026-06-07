@@ -42,10 +42,19 @@ public class VehicleService implements VehicleUseCase {
     }
 
     @Override
-    public Page<VehicleResponse> findVehicles(String clienteId, Pageable pageable) {
-        Page<Vehicle> vehicles = clienteId == null || clienteId.isBlank()
-                ? persistencePort.findAll(pageable)
-                : persistencePort.findByClienteId(clienteId, pageable);
+    public Page<VehicleResponse> findVehicles(String clienteId, String placa, Pageable pageable) {
+        boolean hasClienteId = clienteId != null && !clienteId.isBlank();
+        boolean hasPlaca = placa != null && !placa.isBlank();
+        Page<Vehicle> vehicles;
+        if (hasClienteId && hasPlaca) {
+            vehicles = persistencePort.findByClienteIdAndPlacaContaining(clienteId, placa, pageable);
+        } else if (hasPlaca) {
+            vehicles = persistencePort.findByPlacaContaining(placa, pageable);
+        } else if (hasClienteId) {
+            vehicles = persistencePort.findByClienteId(clienteId, pageable);
+        } else {
+            vehicles = persistencePort.findAll(pageable);
+        }
         return vehicles.map(this::toResponse);
     }
 
